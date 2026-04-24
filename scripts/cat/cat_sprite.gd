@@ -13,7 +13,7 @@ const CAT_SLEEP_02 := preload("res://assets/cat/cat_sleep_02.png")
 
 var current_anim := "idle"
 var anim_time := 0.0
-var base_scale := 0.58
+var base_scale := 0.46
 
 
 func _ready() -> void:
@@ -126,7 +126,7 @@ func _bob_offset() -> float:
 func _squash_scale() -> Vector2:
 	match current_anim:
 		"sleep":
-			return Vector2(1.08, 0.96)
+			return Vector2(1.05, 0.97)
 		"pet":
 			return Vector2(1.03 + sin(anim_time * 8.0) * 0.02, 1.0)
 		"play":

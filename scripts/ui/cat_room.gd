@@ -61,7 +61,7 @@ func get_cat() -> Node2D:
 
 
 func _build() -> void:
-	custom_minimum_size = Vector2(0, 570)
+	custom_minimum_size = Vector2(0, 610)
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	clip_contents = true
@@ -86,8 +86,8 @@ func _build_wall_layer() -> void:
 	wall.set_anchors_preset(Control.PRESET_FULL_RECT)
 	wall_layer.add_child(wall)
 
-	_add_room_asset(wall_layer, "WindowNight", WINDOW_NIGHT, Vector2(0.20, 0.26), 0.32)
-	_add_room_asset(wall_layer, "Curtain", CURTAIN, Vector2(0.20, 0.30), 0.30)
+	# 当前 room_wall_night.png 已经包含窗户和窗帘，先避免重复叠加。
+	# 后续如果替换成纯墙面背景，再恢复 WindowNight 和 Curtain 独立素材。
 
 	var shelf := Control.new()
 	shelf.name = "Shelf"
@@ -111,11 +111,11 @@ func _build_floor_layer() -> void:
 	floor.offset_bottom = 0
 	floor_layer.add_child(floor)
 
-	_add_room_asset(floor_layer, "Rug", RUG, Vector2(0.50, 0.70), 0.78)
-	_add_room_asset(floor_layer, "CatBed", CAT_BED, Vector2(0.50, 0.60), 0.42)
-	_add_room_asset(floor_layer, "Scratcher", SCRATCHER, Vector2(0.12, 0.54), 0.23)
-	_add_room_asset(floor_layer, "FoodBowl", FOOD_BOWL, Vector2(0.84, 0.78), 0.18)
-	_add_room_asset(floor_layer, "YarnBall", YARN_BALL, Vector2(0.16, 0.78), 0.14)
+	_add_room_asset(floor_layer, "Rug", RUG, Vector2(0.50, 0.77), 0.82)
+	_add_room_asset(floor_layer, "CatBed", CAT_BED, Vector2(0.50, 0.70), 0.50)
+	_add_room_asset(floor_layer, "Scratcher", SCRATCHER, Vector2(0.13, 0.58), 0.18)
+	_add_room_asset(floor_layer, "FoodBowl", FOOD_BOWL, Vector2(0.83, 0.82), 0.16)
+	_add_room_asset(floor_layer, "YarnBall", YARN_BALL, Vector2(0.18, 0.82), 0.12)
 
 
 func _build_cat_layer() -> void:
@@ -141,8 +141,8 @@ func _build_ui_layer() -> void:
 	room_title_label.add_theme_font_size_override("font_size", 38)
 	room_title_label.add_theme_color_override("font_color", Color("#5a3217"))
 	room_title_label.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	room_title_label.offset_top = 50
-	room_title_label.offset_bottom = 100
+	room_title_label.offset_top = 34
+	room_title_label.offset_bottom = 82
 	ui_layer.add_child(room_title_label)
 
 	var left_sparkle := DrawIcons.SparkleIcon.new()
@@ -167,23 +167,26 @@ func _build_ui_layer() -> void:
 	underline.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	underline.offset_left = 206
 	underline.offset_right = -206
-	underline.offset_top = 104
-	underline.offset_bottom = 132
+	underline.offset_top = 88
+	underline.offset_bottom = 116
 	ui_layer.add_child(underline)
 
 	var bubble := PanelContainer.new()
 	bubble.name = "SpeechBubble"
 	bubble.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	bubble.offset_left = -284
-	bubble.offset_right = -22
-	bubble.offset_top = 172
-	bubble.offset_bottom = 264
-	bubble.add_theme_stylebox_override("panel", UiTheme.make_panel_style(Color(1, 0.98, 0.92, 0.92), 34, Color("#dcb785"), 2, 3))
+	bubble.offset_left = -260
+	bubble.offset_right = -24
+	bubble.offset_top = 150
+	bubble.offset_bottom = 238
+	var bubble_style := UiTheme.make_panel_style(Color(1, 0.98, 0.92, 0.92), 34, Color("#dcb785"), 2, 3)
+	bubble_style.content_margin_left = 22
+	bubble_style.content_margin_right = 16
+	bubble.add_theme_stylebox_override("panel", bubble_style)
 	ui_layer.add_child(bubble)
 
 	speech_label = Label.new()
 	speech_label.name = "SpeechLabel"
-	speech_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	speech_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	speech_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	speech_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	speech_label.add_theme_font_size_override("font_size", 22)
@@ -192,10 +195,10 @@ func _build_ui_layer() -> void:
 
 	var bubble_tail := DrawIcons.BubbleTail.new()
 	bubble_tail.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	bubble_tail.offset_left = -274
-	bubble_tail.offset_right = -222
-	bubble_tail.offset_top = 250
-	bubble_tail.offset_bottom = 304
+	bubble_tail.offset_left = -258
+	bubble_tail.offset_right = -210
+	bubble_tail.offset_top = 226
+	bubble_tail.offset_bottom = 280
 	ui_layer.add_child(bubble_tail)
 
 
@@ -257,6 +260,6 @@ func _layout_cat() -> void:
 	if cat == null:
 		return
 
-	var cat_scale := clampf(size.x / 520.0, 1.12, 1.48)
+	var cat_scale := clampf(size.x / 750.0, 0.92, 1.02)
 	cat.scale = Vector2.ONE * cat_scale
-	cat.position = Vector2(size.x * 0.50, clampf(size.y * 0.72, 360.0, 430.0))
+	cat.position = Vector2(size.x * 0.50, size.y * 0.70)
