@@ -34,7 +34,7 @@ func set_data(cat_name: String, time_text: String, night_amount: float, level: i
 
 
 func _build() -> void:
-	custom_minimum_size = Vector2(0, 98)
+	custom_minimum_size = Vector2(0, 104)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_theme_stylebox_override("panel", UiTheme.make_panel_style(Color("#fff6e5"), 28, Color("#e3bf78"), 3, 6))
 

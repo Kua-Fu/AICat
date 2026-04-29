@@ -67,7 +67,7 @@ func _build_ui() -> void:
 	var page := VBoxContainer.new()
 	page.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	page.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	page.add_theme_constant_override("separation", 14)
+	page.add_theme_constant_override("separation", 12)
 	ui.add_child(page)
 
 	top_bar = TopBarScene.new()

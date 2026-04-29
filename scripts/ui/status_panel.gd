@@ -35,11 +35,15 @@ func update_values(hunger: float, mood: float, energy: float, clean: float) -> v
 
 
 func _build() -> void:
-	custom_minimum_size = Vector2(0, 260)
+	custom_minimum_size = Vector2(0, 288)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	add_theme_stylebox_override("panel", UiTheme.make_panel_style(UiTheme.COLOR_PANEL_LIGHT, 28, UiTheme.COLOR_BORDER, 3, 5))
 
 	var grid := GridContainer.new()
 	grid.columns = 2
+	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	grid.add_theme_constant_override("h_separation", 14)
 	grid.add_theme_constant_override("v_separation", 14)
 	add_child(grid)

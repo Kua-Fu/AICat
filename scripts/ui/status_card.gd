@@ -16,25 +16,32 @@ func setup(title: String, icon_texture: Texture2D, color: Color, bg: Color, bg_t
 	base_color = color
 	accent = color
 	sparkle_texture = sparkle
+	custom_minimum_size = Vector2(0, 112)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 
-	card_style = UiTheme.make_texture_panel_style(bg_texture, bg, 18, color.lightened(0.25), 2, 1, Vector2(18, 14))
+	card_style = UiTheme.make_panel_style(bg, 18, color.lightened(0.25), 2, 1)
 	add_theme_stylebox_override("panel", card_style)
 
 	var row := HBoxContainer.new()
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 14)
 	add_child(row)
 
 	var icon := TextureRect.new()
 	icon.texture = icon_texture
-	icon.custom_minimum_size = Vector2(74, 74)
+	icon.custom_minimum_size = Vector2(76, 76)
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(icon)
 
 	var details := VBoxContainer.new()
 	details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	details.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	details.add_theme_constant_override("separation", 10)
 	row.add_child(details)
 

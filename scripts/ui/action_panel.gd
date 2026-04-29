@@ -38,14 +38,14 @@ func update_availability(is_outside: bool, is_sleeping: bool) -> void:
 		_build()
 
 	if is_outside:
-		sleep_button.text = "外出中"
+		sleep_button.set_title("外出中")
 		sleep_button.disabled = true
 		feed_button.disabled = true
 		touch_button.disabled = true
 		play_button.disabled = true
 		clean_button.disabled = true
 	else:
-		sleep_button.text = "叫醒" if is_sleeping else "睡觉"
+		sleep_button.set_title("叫醒" if is_sleeping else "睡觉")
 		sleep_button.disabled = false
 		feed_button.disabled = false
 		touch_button.disabled = false
@@ -55,7 +55,9 @@ func update_availability(is_outside: bool, is_sleeping: bool) -> void:
 
 
 func _build() -> void:
-	custom_minimum_size = Vector2(0, 158)
+	custom_minimum_size = Vector2(0, 166)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	add_theme_constant_override("separation", 14)
 
 	feed_button = _make_action_button("喂食", ICON_FEED, BG_FEED, SPARKLE_GOLD, "恢复饱腹，稍微增加心情", UiTheme.COLOR_BTN_FEED, Color("#e7a84e"), "feed")
@@ -77,6 +79,8 @@ func _build() -> void:
 func _make_action_button(label: String, icon_texture: Texture2D, bg_texture: Texture2D, sparkle_texture: Texture2D, tooltip: String, bg: Color, border: Color, action: String) -> Button:
 	var button = ActionButtonScene.new()
 	button.setup(label, icon_texture, tooltip, bg, border, bg_texture, sparkle_texture)
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	button.pressed.connect(func() -> void:
 		action_requested.emit(action, button)
 	)

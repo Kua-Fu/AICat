@@ -13,7 +13,7 @@ const CAT_SLEEP_02 := preload("res://assets/cat/cat_sleep_02.png")
 
 var current_anim := "idle"
 var anim_time := 0.0
-var base_scale := 0.46
+var base_scale := 0.42
 
 
 func _ready() -> void:

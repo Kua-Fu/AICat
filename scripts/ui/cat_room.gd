@@ -61,7 +61,7 @@ func get_cat() -> Node2D:
 
 
 func _build() -> void:
-	custom_minimum_size = Vector2(0, 610)
+	custom_minimum_size = Vector2(0, 600)
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	clip_contents = true
@@ -111,11 +111,11 @@ func _build_floor_layer() -> void:
 	floor.offset_bottom = 0
 	floor_layer.add_child(floor)
 
-	_add_room_asset(floor_layer, "Rug", RUG, Vector2(0.50, 0.77), 0.82)
-	_add_room_asset(floor_layer, "CatBed", CAT_BED, Vector2(0.50, 0.70), 0.50)
-	_add_room_asset(floor_layer, "Scratcher", SCRATCHER, Vector2(0.13, 0.58), 0.18)
-	_add_room_asset(floor_layer, "FoodBowl", FOOD_BOWL, Vector2(0.83, 0.82), 0.16)
-	_add_room_asset(floor_layer, "YarnBall", YARN_BALL, Vector2(0.18, 0.82), 0.12)
+	_add_room_asset(floor_layer, "Rug", RUG, Vector2(0.50, 0.78), 0.86)
+	_add_room_asset(floor_layer, "CatBed", CAT_BED, Vector2(0.50, 0.70), 0.62)
+	_add_room_asset(floor_layer, "Scratcher", SCRATCHER, Vector2(0.13, 0.61), 0.17)
+	_add_room_asset(floor_layer, "FoodBowl", FOOD_BOWL, Vector2(0.84, 0.82), 0.15)
+	_add_room_asset(floor_layer, "YarnBall", YARN_BALL, Vector2(0.18, 0.82), 0.11)
 
 
 func _build_cat_layer() -> void:

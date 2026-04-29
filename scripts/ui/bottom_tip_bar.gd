@@ -25,7 +25,7 @@ func set_tip(text: String) -> void:
 
 
 func _build() -> void:
-	custom_minimum_size = Vector2(0, 88)
+	custom_minimum_size = Vector2(0, 84)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_load_textures()
@@ -36,7 +36,7 @@ func _build() -> void:
 
 	var root := Control.new()
 	root.name = "BottomTipContent"
-	root.custom_minimum_size = Vector2(0, 88)
+	root.custom_minimum_size = Vector2(0, 84)
 	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	root.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
