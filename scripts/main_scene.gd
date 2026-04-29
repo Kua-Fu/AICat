@@ -5,8 +5,12 @@ const CatRoomScene := preload("res://scripts/ui/cat_room.gd")
 const StatusPanelScene := preload("res://scripts/ui/status_panel.gd")
 const ActionPanelScene := preload("res://scripts/ui/action_panel.gd")
 const BottomTipBarScene := preload("res://scripts/ui/bottom_tip_bar.gd")
+const DESIGN_WIDTH := 750.0
+const PAGE_MARGIN_X := 18.0
+const MAX_PAGE_WIDTH := DESIGN_WIDTH - PAGE_MARGIN_X * 2.0
 
 var cat: Node2D
+var page: VBoxContainer
 var top_bar
 var cat_room
 var status_panel
@@ -45,6 +49,8 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		GameData.save_game()
 		get_tree().quit()
+	elif what == NOTIFICATION_RESIZED:
+		_update_page_width_limit()
 
 
 func _build_ui() -> void:
@@ -64,11 +70,20 @@ func _build_ui() -> void:
 	ui.add_theme_constant_override("margin_bottom", 24)
 	add_child(ui)
 
-	var page := VBoxContainer.new()
-	page.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var center := CenterContainer.new()
+	center.name = "ContentCenter"
+	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	ui.add_child(center)
+
+	page = VBoxContainer.new()
+	page.name = "Page"
+	page.custom_minimum_size = Vector2(MAX_PAGE_WIDTH, 0)
+	page.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	page.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	page.add_theme_constant_override("separation", 12)
-	ui.add_child(page)
+	center.add_child(page)
+	_update_page_width_limit()
 
 	top_bar = TopBarScene.new()
 	page.add_child(top_bar)
@@ -86,6 +101,13 @@ func _build_ui() -> void:
 
 	bottom_tip_bar = BottomTipBarScene.new()
 	page.add_child(bottom_tip_bar)
+
+
+func _update_page_width_limit() -> void:
+	if page == null:
+		return
+	var available_width := maxf(size.x - PAGE_MARGIN_X * 2.0, 320.0)
+	page.custom_minimum_size.x = minf(MAX_PAGE_WIDTH, available_width)
 
 
 func refresh_ui() -> void:

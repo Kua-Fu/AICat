@@ -24,11 +24,11 @@ TripResultStore="*res://scripts/trip_result_store.gd"
 
 window/size/viewport_width=750
 window/size/viewport_height=1334
-window/size/mode=3
+window/size/mode=0
 window/size/window_width_override=750
 window/size/window_height_override=1334
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_width"
+window/stretch/aspect="keep"
 
 [physics]
 
