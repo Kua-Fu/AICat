@@ -58,9 +58,9 @@ func _build_ui() -> void:
 	var ui := MarginContainer.new()
 	ui.name = "UI"
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
-	ui.add_theme_constant_override("margin_left", 22)
-	ui.add_theme_constant_override("margin_right", 22)
-	ui.add_theme_constant_override("margin_top", 22)
+	ui.add_theme_constant_override("margin_left", 18)
+	ui.add_theme_constant_override("margin_right", 18)
+	ui.add_theme_constant_override("margin_top", 18)
 	ui.add_theme_constant_override("margin_bottom", 24)
 	add_child(ui)
 

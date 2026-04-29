@@ -8,26 +8,29 @@ var accent := Color("#f47c62")
 var base_color := Color("#f47c62")
 var value_label: Label
 var bar: ProgressBar
-var card_style: StyleBoxFlat
+var card_style: StyleBox
+var sparkle_texture: Texture2D
 
 
-func setup(title: String, icon_kind: String, color: Color, bg: Color) -> void:
+func setup(title: String, icon_texture: Texture2D, color: Color, bg: Color, bg_texture: Texture2D = null, sparkle: Texture2D = null) -> void:
 	base_color = color
 	accent = color
+	sparkle_texture = sparkle
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 
-	card_style = UiTheme.make_panel_style(bg, 18, color.lightened(0.25), 2, 1)
+	card_style = UiTheme.make_texture_panel_style(bg_texture, bg, 18, color.lightened(0.25), 2, 1, Vector2(18, 14))
 	add_theme_stylebox_override("panel", card_style)
 
 	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 16)
+	row.add_theme_constant_override("separation", 14)
 	add_child(row)
 
-	var icon := DrawIcons.StatusIcon.new()
-	icon.kind = icon_kind
-	icon.tint = color
-	icon.custom_minimum_size = Vector2(78, 78)
+	var icon := TextureRect.new()
+	icon.texture = icon_texture
+	icon.custom_minimum_size = Vector2(74, 74)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	row.add_child(icon)
 
 	var details := VBoxContainer.new()
@@ -68,15 +71,19 @@ func update_value(value: float) -> void:
 	fill.set_corner_radius_all(12)
 	bar.add_theme_stylebox_override("fill", fill)
 
-	card_style.border_color = color.lightened(0.25)
-	card_style.shadow_color = Color(0.56, 0.24, 0.12, 0.16 if value < 40.0 else 0.06)
-	card_style.shadow_size = 4 if value < 40.0 else 1
+	if card_style is StyleBoxFlat:
+		card_style.border_color = color.lightened(0.25)
+		card_style.shadow_color = Color(0.56, 0.24, 0.12, 0.16 if value < 40.0 else 0.06)
+		card_style.shadow_size = 4 if value < 40.0 else 1
 
 
 func _draw() -> void:
-	var c := Vector2(size.x - 22, 22)
-	var color := accent.lightened(0.35)
-	draw_polygon(DrawIcons.sparkle_points(c, 9.0, 0.26), PackedColorArray([color, color, color, color, color, color, color, color]))
+	if sparkle_texture != null:
+		draw_texture_rect(sparkle_texture, Rect2(size.x - 44, 8, 34, 34), false)
+	else:
+		var c := Vector2(size.x - 22, 22)
+		var color := accent.lightened(0.35)
+		draw_polygon(DrawIcons.sparkle_points(c, 9.0, 0.26), PackedColorArray([color, color, color, color, color, color, color, color]))
 
 
 func _status_color(value: float) -> Color:

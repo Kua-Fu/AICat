@@ -42,3 +42,31 @@ static func make_panel_style(
 		style.shadow_size = shadow_size
 		style.shadow_offset = Vector2(0, 3)
 	return style
+
+
+static func make_texture_panel_style(
+		texture: Texture2D,
+		fallback_bg: Color,
+		radius: int = 24,
+		border_color: Color = COLOR_BORDER,
+		border_width: int = 2,
+		shadow_size: int = 0,
+		content_margin := Vector2(14, 12),
+		modulate := Color.WHITE
+) -> StyleBox:
+	if texture == null:
+		return make_panel_style(fallback_bg, radius, border_color, border_width, shadow_size)
+
+	var style := StyleBoxTexture.new()
+	style.texture = texture
+	style.modulate_color = modulate
+	style.draw_center = true
+	style.texture_margin_left = 48
+	style.texture_margin_top = 48
+	style.texture_margin_right = 48
+	style.texture_margin_bottom = 48
+	style.content_margin_left = content_margin.x
+	style.content_margin_right = content_margin.x
+	style.content_margin_top = content_margin.y
+	style.content_margin_bottom = content_margin.y
+	return style
